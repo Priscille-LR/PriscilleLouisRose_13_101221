@@ -1,26 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/header';
 import { Footer } from './components/footer';
 import { Home } from './pages/home';
 import { SignIn } from './pages/signIn';
 import { Profile } from './pages/profile';
+import { store } from './store/configureStore'
 import './index.css';
 
-
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <Header />
-      <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route exact path='/sign-in' element={<SignIn />} />
-        <Route exact path='/profile' element={<Profile />} />
-      </Routes>
-      <Footer />
-    </Router>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <Router>
+        <Header />
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route exact path='/sign-in' element={<SignIn />} />
+          <Route exact path='/profile' element={<Profile />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -1,4 +1,7 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+// import loginReducer from '../../reducers/reducer';
+
 import './form.css';
 
 export function Form() {
@@ -16,9 +19,8 @@ export function Form() {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
          </div>
-         <Link to="/profile" style={{ textDecoration: 'none' }}>
-            <button className="sign-in-button">Sign In</button>
-         </Link>
+
+         <button className="sign-in-button">Sign In</button>
       </form>
    );
 }
