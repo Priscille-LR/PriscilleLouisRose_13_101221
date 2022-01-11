@@ -41,3 +41,13 @@
 .sign-in-icon-home {
    margin-right: 0.5rem;
 }
+
+.user-logout {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.signout {
+   margin-left: 1rem;
+}
