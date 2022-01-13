@@ -1,0 +1,14 @@
+.error {
+   margin: 3rem;
+}
+
+.error-title {
+   color: #00bc77;
+   font-size: 60px;
+   font-weight: bold;
+}
+
+.homepage-link {
+   text-decoration: underline;
+   color: #12002b;
+}

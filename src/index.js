@@ -8,7 +8,8 @@ import { Footer } from './components/footer';
 import { Home } from './pages/home';
 import { SignIn } from './pages/signIn';
 import { Profile } from './pages/profile';
-import { store } from './store/configureStore'
+import { Error } from './pages/error';
+import { store } from './redux/store/configureStore'
 import './index.css';
 
 ReactDOM.render(
@@ -27,6 +28,7 @@ ReactDOM.render(
               <Profile />
             </PrivateRoute>
           } />
+          <Route path='/*' element={<Error />} />
         </Routes>
         <Footer />
       </Router>

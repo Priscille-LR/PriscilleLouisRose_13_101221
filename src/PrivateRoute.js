@@ -1,7 +1,7 @@
 import { Route, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 //import { Profile } from './pages/profile'
-import { selectToken } from './utils/selectors'
+import { selectToken } from './redux/utils/selectors'
 
 export function PrivateRoute({ children }) {
 

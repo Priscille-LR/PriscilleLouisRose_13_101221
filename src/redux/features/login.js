@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { selectLoginStatus } from '../utils/selectors'
-import DataFromAPI from '../service/DataFromAPI'
+import DataFromAPI from '../../service/DataFromAPI'
 
 const initialState = {
     status: 'void',

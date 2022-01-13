@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { fetchOrUpdateToken } from '../../features/login';
-import { selectToken } from '../../utils/selectors';
+import { fetchOrUpdateToken } from '../../redux/features/login';
+import { selectToken } from '../../redux/utils/selectors';
 import './signIn.css';
 
 export function SignIn() {

@@ -5,8 +5,8 @@ import {
    selectToken,
    selectUserFirstName,
    selectUserLastName,
-} from '../../utils/selectors';
-import { logout } from '../../features/login';
+} from '../../redux/utils/selectors';
+import { logout } from '../../redux/features/login';
 import './header.css';
 
 export function Header() {

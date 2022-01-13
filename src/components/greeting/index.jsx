@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchOrUpdateUserProfile } from '../../features/userProfile';
-import { selectUserFirstName, selectUserLastName } from '../../utils/selectors';
+import { fetchOrUpdateUserProfile } from '../../redux/features/userProfile';
+import {
+   selectUserFirstName,
+   selectUserLastName,
+} from '../../redux/utils/selectors';
 import './greeting.css';
 
 export function Greeting() {
