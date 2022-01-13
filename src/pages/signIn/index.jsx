@@ -1,43 +1,26 @@
 // import { Form } from '../../components/form';
-import './signIn.css';
-import DataFromAPI from '../../service/DataFromAPI';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { logInUser } from '../../actions/login';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { fetchOrUpdateToken } from '../../features/login';
+import { selectToken } from '../../utils/selectors';
+import './signIn.css';
 
 export function SignIn() {
-   const api = new DataFromAPI();
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
    const [invalidData, setInvalidData] = useState('');
 
-   // api.profile();
-
    const dispatch = useDispatch();
-   const isUserLoggedIn = useSelector((state) => state.isUserLoggedIn);
-   //const token = useSelector((state) => state.token);
+   const isUserLoggedIn = useSelector(selectToken) != null;
+   const token = useSelector(selectToken);
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      const token = await api.login(username, password);
-      // const currentDate = Date.now() / 1000;
-      // console.log(currentDate);
-      // console.log(token);
-
-      //check if token is still valid
-      const isTokenExpired = (token) =>
-         Date.now() >= JSON.parse(atob(token.split('.')[1])).exp * 1000;
-
-      if (token && !isTokenExpired(token)) {
-         dispatch(logInUser(true, token));
-      } else if (username === '' || password === '') {
+      if (username === '' || password === '') {
          setInvalidData('Veuillez remplir correctement les champs.');
-      } else if (isTokenExpired) {
-         setInvalidData(
-            'Votre session est expirée. Veuillez vous reconnecter.'
-         );
+      } else {
+         dispatch(fetchOrUpdateToken(username, password));
       }
    };
 

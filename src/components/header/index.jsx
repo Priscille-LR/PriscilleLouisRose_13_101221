@@ -1,15 +1,22 @@
 import logo from '../../assets/argentBankLogo.png';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+   selectToken,
+   selectUserFirstName,
+   selectUserLastName,
+} from '../../utils/selectors';
+import { logout } from '../../features/login';
 import './header.css';
-import { logInUser } from '../../actions/login';
 
 export function Header() {
    const dispatch = useDispatch();
-   const isUserLoggedIn = useSelector((state) => state.isUserLoggedIn);
+   const isUserLoggedIn = useSelector(selectToken) != null;
+   const firstName = useSelector(selectUserFirstName);
+   const lastName = useSelector(selectUserLastName);
 
-   const handleLogout = () => {
-      dispatch(logInUser(false));
+   const handleLogOut = () => {
+      dispatch(logout());
    };
 
    let loginLink;
@@ -26,12 +33,14 @@ export function Header() {
          <Link
             to="/"
             className="main-nav-item  main-nav-link "
-            onClick={handleLogout}
+            onClick={handleLogOut}
          >
             <div className="user-logout">
                <div>
                   <i className="fa fa-user-circle sign-in-icon-home"></i>
-                  <span>Tony</span>
+                  <span>
+                     {firstName} {lastName}
+                  </span>
                </div>
                <div className="signout">
                   <i className="fas fa-sign-out-alt sign-in-icon-home"></i>

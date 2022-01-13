@@ -9,7 +9,7 @@ export function Accounts() {
          description: 'Available Balance',
       },
       {
-         title: 'AArgent Bank Savings (x6712)',
+         title: 'Argent Bank Savings (x6712)',
          amount: '$10,928.42',
          description: 'Available Balance',
       },
