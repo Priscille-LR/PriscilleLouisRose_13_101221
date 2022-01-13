@@ -13,7 +13,6 @@ export function SignIn() {
 
    const dispatch = useDispatch();
    const isUserLoggedIn = useSelector(selectToken) != null;
-   const token = useSelector(selectToken);
 
    const handleSubmit = async (e) => {
       e.preventDefault();

@@ -14,6 +14,7 @@ export async function fetchOrUpdateUserProfile(dispatch, getState) {
     const status = selectUserStatus(getState())
     const token = selectToken(getState())
 
+
     if (status === 'pending' || status === 'updating') {
         return
     }

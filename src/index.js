@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { PrivateRoute } from './PrivateRoute';
 import { Header } from './components/header';
 import { Footer } from './components/footer';
 import { Home } from './pages/home';
@@ -18,7 +19,14 @@ ReactDOM.render(
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route exact path='/sign-in' element={<SignIn />} />
-          <Route exact path='/profile' element={<Profile />} />
+          {/* <PrivateRoute path='/profile' element={<Profile />} /> */}
+
+
+          <Route path='/profile' element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          } />
         </Routes>
         <Footer />
       </Router>
