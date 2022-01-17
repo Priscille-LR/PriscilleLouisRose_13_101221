@@ -1,3 +1,5 @@
+const api = 'http://localhost:3001/api/v1/user'
+
 class DataFromAPI {
 
     async loginUser(username, password) {
@@ -8,7 +10,7 @@ class DataFromAPI {
         }
 
 
-        const request = 'http://localhost:3001/api/v1/user/login'
+        const request = `${api}/login`
 
         try {
             const response = await fetch(request, {
@@ -22,7 +24,6 @@ class DataFromAPI {
             const data = await response.json()
             console.log('success', data)
 
-            //const token = data.body.token
             return data
         } catch (error) {
             console.log('unable to get user token')
@@ -32,7 +33,7 @@ class DataFromAPI {
 
     async getUserProfile(token) {
 
-        const request = 'http://localhost:3001/api/v1/user/profile'
+        const request = `${api}/profile`
 
         try {
             const response = await fetch(request, {
@@ -44,10 +45,41 @@ class DataFromAPI {
             })
             const data = await response.json()
             console.log('success getUserProfile', data)
+
             return data
         } catch (error) {
             console.log('unable to get user token')
         }
+
+    }
+
+
+    async edituserName(token, firstName, lastName) {
+        const request = `${api}/profile`
+
+        const body = {
+            firstName: firstName,
+            lastName: lastName
+        }
+
+
+        try {
+            const response = await fetch(request, {
+                method: 'PUT',
+                body: JSON.stringify(body),
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            const data = await response.json()
+            console.log('sucess edit user name')
+            return data
+        } catch (error) {
+            console.log('unable to rename user')
+        }
+
+
 
     }
 

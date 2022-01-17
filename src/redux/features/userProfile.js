@@ -9,37 +9,62 @@ const initialState = {
 }
 
 
-export async function fetchOrUpdateUserProfile(dispatch, getState) {
-    const api = new DataFromAPI()
-    const status = selectUserStatus(getState())
-    const token = selectToken(getState())
+const api = new DataFromAPI()
+
+export function fetchOrUpdateUserProfile(isEditName, firstName, lastName) {
+    return async (dispatch, getState) => {
 
 
-    if (status === 'pending' || status === 'updating') {
-        return
-    }
+        const status = selectUserStatus(getState())
+        const token = selectToken(getState())
+        console.log(token)
 
-    dispatch(actions.fetching())
-
-    try {
-        const response = await api.getUserProfile(token)
-        if (response.status === 200) {
-            dispatch(actions.resolved(response.body))
-        } else if (response.status === 400) {
-            dispatch(actions.rejected(response.message))
+        if (status === 'pending' || status === 'updating') {
+            return
         }
-    } catch (error) {
-        console.log("error")
-        dispatch(actions.rejected('unable to get user profile'))
-    }
 
+        if (isEditName) {
+            dispatch(actions.editNameFetching())
+
+            try {
+                const response = await api.edituserName(token, firstName, lastName)
+                if (response.status === 200) {
+                    dispatch(actions.editNameResolved(response.body))
+                } else if (response.status === 400) {
+                    dispatch(actions.editNameRejected(response.message))
+                }
+
+            } catch (error) {
+                console.log("error")
+                dispatch(actions.editNameRejected('unable to edit user name'))
+            }
+
+
+        } else {
+            dispatch(actions.getProfileFetching())
+
+            try {
+                const response = await api.getUserProfile(token)
+                if (response.status === 200) {
+                    dispatch(actions.getProfileResolved(response.body))
+                } else if (response.status === 400) {
+                    dispatch(actions.getProfileRejected(response.message))
+                }
+            } catch (error) {
+                console.log("error")
+                dispatch(actions.getProfileRejected('unable to get user profile'))
+            }
+
+        }
+    }
 }
+
 
 const { actions, reducer } = createSlice({
     name: 'userProfile',
     initialState,
     reducers: {
-        fetching: (draft) => {
+        getProfileFetching: (draft) => {
             if (draft.status === 'void') {
                 draft.status = 'pending'
                 return
@@ -53,27 +78,61 @@ const { actions, reducer } = createSlice({
                 draft.status = 'updating'
                 return
             }
-            return
         },
-        resolved: (draft, action) => {
+        getProfileResolved: (draft, action) => {
             if (draft.status === 'pending' || draft.status === 'updating') {
                 draft.data = action.payload
                 draft.status = 'resolved'
                 return
             }
-            return
         },
-        rejected: (draft, action) => {
+        getProfileRejected: (draft, action) => {
             if (draft.status === 'pending' || draft.status === 'updating') {
                 draft.error = action.payload
                 draft.data = null
                 draft.status = 'rejected'
                 return
             }
-            return
-        }
+        },
+        editNameFetching: (draft) => {
+            if (draft.status === 'void') {
+                draft.status = 'pending'
+                return
+            }
+            if (draft.status === 'rejected') {
+                draft.error = null
+                draft.status = 'pending'
+                return
+            }
+            if (draft.status === 'resolved') {
+                draft.status = 'updating'
+                return
+            }
+        },
+        editNameResolved: (draft, action) => {
+            if (draft.status === 'pending' || draft.status === 'updating') {
+                draft.data = action.payload
+                draft.status = 'resolved'
+                return
+            }
+        },
+        editNameRejected: (draft, action) => {
+            if (draft.status === 'pending' || draft.status === 'updating') {
+                draft.error = action.payload
+                draft.data = null
+                draft.status = 'rejected'
+                return
+            }
+
+        },
+        resetUserData: () => {
+            // localStorage.clear();
+            return initialState
+        },
     }
 
 })
+
+export const { resetUserData } = actions
 
 export default reducer

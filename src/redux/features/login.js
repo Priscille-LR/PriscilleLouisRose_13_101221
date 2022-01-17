@@ -9,7 +9,7 @@ const initialState = {
 }
 
 
-export function fetchOrUpdateToken(username, password) { //thunk creator => function qui retourne thunk
+export function fetchOrUpdateToken(stayLogged, username, password) { //thunk creator => function qui retourne thunk
     return async (dispatch, getState) => { //thunk
 
         const api = new DataFromAPI()
@@ -25,6 +25,10 @@ export function fetchOrUpdateToken(username, password) { //thunk creator => func
             const response = await api.loginUser(username, password)
             if (response.status === 200) {
                 dispatch(actions.resolved(response.body.token))
+                if (stayLogged) {
+
+                    window.localStorage.setItem('access_token', response.body.token)
+                }
             } else if (response.status === 400) {
                 dispatch(actions.rejected(response.message))
             }
@@ -94,8 +98,9 @@ const { actions, reducer } = createSlice({
             }
         },
         logout: () => {
+            localStorage.clear();
             return initialState
-        }
+        },
     }
 })
 

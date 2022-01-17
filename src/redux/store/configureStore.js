@@ -3,11 +3,10 @@ import loginReducer from '../features/login'
 import userProfileReducer from '../features/userProfile'
 
 
-
 export const store = configureStore({
     reducer: {
         login: loginReducer,
-        userProfile: userProfileReducer
+        userProfile: userProfileReducer,
     }
 })
 

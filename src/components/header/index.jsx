@@ -2,22 +2,36 @@ import logo from '../../assets/argentBankLogo.png';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-   selectToken,
+   selectIsUserLoggedIn,
    selectUserFirstName,
    selectUserLastName,
 } from '../../redux/utils/selectors';
 import { logout } from '../../redux/features/login';
 import './header.css';
+import { useEffect } from 'react';
+import {
+   fetchOrUpdateUserProfile,
+   resetUserData,
+} from '../../redux/features/userProfile';
 
 export function Header() {
    const dispatch = useDispatch();
-   const isUserLoggedIn = useSelector(selectToken) != null;
+   const isUserLoggedIn = useSelector(selectIsUserLoggedIn);
    const firstName = useSelector(selectUserFirstName);
    const lastName = useSelector(selectUserLastName);
 
    const handleLogOut = () => {
       dispatch(logout());
+      dispatch(resetUserData());
    };
+
+   useEffect(() => {
+      console.log(firstName);
+      console.log(lastName);
+      if ((!firstName || !lastName) && isUserLoggedIn) {
+         dispatch(fetchOrUpdateUserProfile(false, firstName, lastName));
+      }
+   }, [dispatch, firstName, lastName, isUserLoggedIn]);
 
    const location = useLocation().pathname;
 

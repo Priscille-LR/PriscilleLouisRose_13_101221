@@ -3,24 +3,31 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { fetchOrUpdateToken } from '../../redux/features/login';
-import { selectToken } from '../../redux/utils/selectors';
+import { selectIsUserLoggedIn } from '../../redux/utils/selectors';
 import './signIn.css';
 
 export function SignIn() {
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
    const [invalidData, setInvalidData] = useState('');
+   const [stayLogged, setStayLogged] = useState(false);
+
+   const isUserLoggedIn = useSelector(selectIsUserLoggedIn);
 
    const dispatch = useDispatch();
-   const isUserLoggedIn = useSelector(selectToken) != null;
 
    const handleSubmit = async (e) => {
       e.preventDefault();
       if (username === '' || password === '') {
          setInvalidData('Veuillez remplir correctement les champs.');
       } else {
-         dispatch(fetchOrUpdateToken(username, password));
+         dispatch(fetchOrUpdateToken(stayLogged, username, password));
       }
+   };
+
+   const handleStayLogged = (e) => {
+      const checked = e.target.checked;
+      setStayLogged(checked);
    };
 
    const signInForm = (
@@ -48,7 +55,11 @@ export function SignIn() {
                   />
                </div>
                <div className="input-remember">
-                  <input type="checkbox" id="remember-me" />
+                  <input
+                     type="checkbox"
+                     id="remember-me"
+                     onChange={handleStayLogged}
+                  />
                   <label htmlFor="remember-me">Remember me</label>
                </div>
 
