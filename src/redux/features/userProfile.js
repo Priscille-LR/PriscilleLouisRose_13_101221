@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { selectUserStatus, selectToken } from '../utils/selectors'
-import DataFromAPI from '../../service/DataFromAPI'
+import UserService from '../../service/UserService'
 
 const initialState = {
     status: 'void',
@@ -9,15 +9,14 @@ const initialState = {
 }
 
 
-const api = new DataFromAPI()
+const api = new UserService()
 
+//if user has clicked on "edit name", dispatch editing-related actions;
+//otherwise, get user profile info
 export function fetchOrUpdateUserProfile(isEditName, firstName, lastName) {
     return async (dispatch, getState) => {
-
-
         const status = selectUserStatus(getState())
         const token = selectToken(getState())
-        console.log(token)
 
         if (status === 'pending' || status === 'updating') {
             return
@@ -126,11 +125,9 @@ const { actions, reducer } = createSlice({
 
         },
         resetUserData: () => {
-            // localStorage.clear();
             return initialState
         },
     }
-
 })
 
 export const { resetUserData } = actions

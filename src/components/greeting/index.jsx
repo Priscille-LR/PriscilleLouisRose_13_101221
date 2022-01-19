@@ -24,21 +24,21 @@ export function Greeting() {
       }
    }, [dispatch, isEditName, firstName, lastName]);
 
+   //display inputs if editing
    const toggle = () => {
-      //display inputs if editing
       setIsEditName(!isEditName);
    };
 
+   //get back old value
    const cancelEdit = () => {
-      //get back old value
       setFirstName(userInfo.firstName);
       setLastName(userInfo.lastName);
       toggle();
    };
 
    const handleSubmit = async (e) => {
+      //prevent submit if invalid data
       if (firstName === '' || lastName === '') {
-         //prevent submit if invalid data
          e.preventDefault();
       } else {
          dispatch(resetUserData());
@@ -48,7 +48,7 @@ export function Greeting() {
    };
 
    const nameInputs = (
-      <div>
+      <div className="name-inputs">
          <input
             type="text"
             id="firstname"
@@ -72,14 +72,14 @@ export function Greeting() {
    );
 
    const saveNameButton = (
-      <>
+      <div className="save-cancel-buttons">
          <button className="edit-button" onClick={cancelEdit}>
             Cancel
          </button>
          <button className="edit-button" onClick={handleSubmit}>
-            Save change
+            Save
          </button>
-      </>
+      </div>
    );
 
    return status === 'pending' || status === 'void' ? (
@@ -98,15 +98,4 @@ export function Greeting() {
          {isEditName ? saveNameButton : editNameButton}
       </div>
    );
-
-   // return (
-   //    <div className="header">
-   //       <h1 className="header-text">
-   //          Welcome back
-   //          <br />
-   //          {firstName} {lastName} !
-   //       </h1>
-   //       <button className="edit-button">Edit Name</button>
-   //    </div>
-   // );
 }

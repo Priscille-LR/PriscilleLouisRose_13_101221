@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { selectLoginStatus } from '../utils/selectors'
-import DataFromAPI from '../../service/DataFromAPI'
+import UserService from '../../service/UserService'
 
 const initialState = {
     status: 'void',
@@ -8,11 +8,10 @@ const initialState = {
     error: null
 }
 
+const api = new UserService()
 
 export function fetchOrUpdateToken(stayLogged, username, password) { //thunk creator => function qui retourne thunk
     return async (dispatch, getState) => { //thunk
-
-        const api = new DataFromAPI()
         const status = selectLoginStatus(getState())
 
         if (status === 'pending' || status === 'updating') {
@@ -25,8 +24,7 @@ export function fetchOrUpdateToken(stayLogged, username, password) { //thunk cre
             const response = await api.loginUser(username, password)
             if (response.status === 200) {
                 dispatch(actions.resolved(response.body.token))
-                if (stayLogged) {
-
+                if (stayLogged) { //persistent login => store token in local storage if user has clicked on "remember me"
                     window.localStorage.setItem('access_token', response.body.token)
                 }
             } else if (response.status === 400) {
@@ -37,8 +35,6 @@ export function fetchOrUpdateToken(stayLogged, username, password) { //thunk cre
             dispatch(actions.rejected('unable to get user token'))
         }
     }
-
-
 }
 
 //create slice => generate actions and reducer in one go
@@ -107,55 +103,3 @@ const { actions, reducer } = createSlice({
 export const { logout } = actions
 export default reducer
 
-
-
-// const FETCHING = 'login/fetching'
-// const RESOLVED = 'login/resolved'
-// const REJECTED = 'login/rejected'
-
-// const loginFetching = () => ({ type: FETCHING })
-// const loginResolved = (data) => ({ type: RESOLVED, payload: data })
-// const loginRejected = (error) => ({ type: REJECTED, payload: error })
-
-
-// export default function loginReducer(state = initialState, action) {
-//     return produce(state, draft => {
-//         switch (action.type) {
-//             case FETCHING: {
-//                 if (draft.status === 'void') {
-//                     draft.status = 'pending'
-//                     return
-//                 }
-//                 if (draft.status === 'rejected') {
-//                     draft.error = null
-//                     draft.status = 'pending'
-//                     return
-//                 }
-//                 if (draft.status === 'resolved') {
-//                     draft.status = 'updating'
-//                     return
-//                 }
-//                 return
-//             }
-//             case RESOLVED: {
-//                 if (draft.status === 'pending' || draft.status === 'updating') {
-//                     draft.data = action.payload
-//                     draft.status = 'resolved'
-//                     return
-//                 }
-//                 return
-//             }
-//             case REJECTED: {
-//                 if (draft.status === 'pending' || draft.status === 'updating') {
-//                     draft.error = action.payload
-//                     draft.data = null
-//                     draft.status = 'rejected'
-//                     return
-//                 }
-//                 return
-//             }
-//             default:
-//                 return
-//         }
-//     })
-// }

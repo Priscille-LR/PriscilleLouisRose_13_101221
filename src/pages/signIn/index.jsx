@@ -25,6 +25,7 @@ export function SignIn() {
       }
    };
 
+   //if user clicks on "remember me"
    const handleStayLogged = (e) => {
       const checked = e.target.checked;
       setStayLogged(checked);

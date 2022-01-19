@@ -1,6 +1,6 @@
 const api = 'http://localhost:3001/api/v1/user'
 
-class DataFromAPI {
+class UserService {
 
     async loginUser(username, password) {
 
@@ -86,4 +86,4 @@ class DataFromAPI {
 
 }
 
-export default DataFromAPI
+export default UserService
