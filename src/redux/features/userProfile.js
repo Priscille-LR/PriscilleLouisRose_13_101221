@@ -13,50 +13,106 @@ const api = new UserService()
 
 //if user has clicked on "edit name", dispatch editing-related actions;
 //otherwise, get user profile info
-export function fetchOrUpdateUserProfile(isEditName, firstName, lastName) {
+
+
+export function updateUserProfile(firstName, lastName) {
     return async (dispatch, getState) => {
+
         const status = selectUserStatus(getState())
-        const token = selectToken(getState())
 
         if (status === 'pending' || status === 'updating') {
             return
         }
 
-        if (isEditName) {
-            dispatch(actions.editNameFetching())
+        dispatch(actions.editNameFetching())
 
-            try {
-                const response = await api.edituserName(token, firstName, lastName)
-                if (response.status === 200) {
-                    dispatch(actions.editNameResolved(response.body))
-                } else if (response.status === 400) {
-                    dispatch(actions.editNameRejected(response.message))
-                }
-
-            } catch (error) {
-                console.log("error")
-                dispatch(actions.editNameRejected('unable to edit user name'))
+        try {
+            const token = selectToken(getState())
+            const response = await api.edituserName(token, firstName, lastName)
+            if (response.status === 200) {
+                dispatch(actions.editNameResolved(response.body))
+            } else {
+                dispatch(actions.editNameRejected(response.message))
             }
 
-
-        } else {
-            dispatch(actions.getProfileFetching())
-
-            try {
-                const response = await api.getUserProfile(token)
-                if (response.status === 200) {
-                    dispatch(actions.getProfileResolved(response.body))
-                } else if (response.status === 400) {
-                    dispatch(actions.getProfileRejected(response.message))
-                }
-            } catch (error) {
-                console.log("error")
-                dispatch(actions.getProfileRejected('unable to get user profile'))
-            }
-
+        } catch (error) {
+            console.log("error")
+            dispatch(actions.editNameRejected('unable to edit user name'))
         }
     }
 }
+
+export function fetchUserProfile() {
+    return async (dispatch, getState) => {
+
+        const status = selectUserStatus(getState())
+
+        if (status === 'pending' || status === 'updating') {
+            return
+        }
+
+        dispatch(actions.getProfileFetching())
+
+        try {
+            const token = selectToken(getState())
+            const response = await api.getUserProfile(token)
+            if (response.status === 200) {
+                dispatch(actions.getProfileResolved(response.body))
+            } else {
+                dispatch(actions.getProfileRejected(response.message))
+            }
+        } catch (error) {
+            console.log("error")
+            dispatch(actions.getProfileRejected('unable to get user profile'))
+        }
+    }
+}
+
+
+// export function fetchOrUpdateUserProfile(isEditName, firstName, lastName) {
+//     return async (dispatch, getState) => {
+//         const status = selectUserStatus(getState())
+//         const token = selectToken(getState())
+
+//         if (status === 'pending' || status === 'updating') {
+//             return
+//         }
+
+//         if (isEditName) {
+//             dispatch(actions.editNameFetching())
+
+//             try {
+//                 const response = await api.edituserName(token, firstName, lastName)
+//                 if (response.status === 200) {
+//                     dispatch(actions.editNameResolved(response.body))
+//                 } else if (response.status === 400) {
+//                     dispatch(actions.editNameRejected(response.message))
+//                 }
+
+//             } catch (error) {
+//                 console.log("error")
+//                 dispatch(actions.editNameRejected('unable to edit user name'))
+//             }
+
+
+//         } else {
+//             dispatch(actions.getProfileFetching())
+
+//             try {
+//                 const response = await api.getUserProfile(token)
+//                 if (response.status === 200) {
+//                     dispatch(actions.getProfileResolved(response.body))
+//                 } else if (response.status === 400) {
+//                     dispatch(actions.getProfileRejected(response.message))
+//                 }
+//             } catch (error) {
+//                 console.log("error")
+//                 dispatch(actions.getProfileRejected('unable to get user profile'))
+//             }
+
+//         }
+//     }
+// }
 
 
 const { actions, reducer } = createSlice({

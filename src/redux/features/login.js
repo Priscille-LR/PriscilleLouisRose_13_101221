@@ -62,7 +62,6 @@ const { actions, reducer } = createSlice({
                     draft.status = 'updating'
                     return
                 }
-                return
             },
         },
         resolved: {
@@ -75,9 +74,7 @@ const { actions, reducer } = createSlice({
                     draft.status = 'resolved'
                     return
                 }
-                return
             }
-
         },
         rejected: {
             prepare: (error) => ({
@@ -90,7 +87,6 @@ const { actions, reducer } = createSlice({
                     draft.status = 'rejected'
                     return
                 }
-                return
             }
         },
         logout: () => {

@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import {
-   fetchOrUpdateUserProfile,
+   fetchUserProfile,
    resetUserData,
+   updateUserProfile,
 } from '../../redux/features/userProfile';
 import { selectUserInfo, selectUserStatus } from '../../redux/utils/selectors';
 import Loader from '../utils';
@@ -20,7 +21,7 @@ export function Greeting() {
 
    useEffect(() => {
       if (!isEditName) {
-         dispatch(fetchOrUpdateUserProfile(isEditName, firstName, lastName));
+         dispatch(fetchUserProfile());
       }
    }, [dispatch, isEditName, firstName, lastName]);
 
@@ -42,7 +43,8 @@ export function Greeting() {
          e.preventDefault();
       } else {
          dispatch(resetUserData());
-         dispatch(fetchOrUpdateUserProfile(isEditName, firstName, lastName));
+         //dispatch(fetchOrUpdateUserProfile(isEditName, firstName, lastName));
+         dispatch(updateUserProfile(firstName, lastName));
          setIsEditName(false);
       }
    };

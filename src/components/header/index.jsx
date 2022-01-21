@@ -10,7 +10,7 @@ import { logout } from '../../redux/features/login';
 import './header.css';
 import { useEffect } from 'react';
 import {
-   fetchOrUpdateUserProfile,
+   fetchUserProfile,
    resetUserData,
 } from '../../redux/features/userProfile';
 
@@ -22,7 +22,7 @@ export function Header() {
 
    useEffect(() => {
       if ((!firstName || !lastName) && isUserLoggedIn) {
-         dispatch(fetchOrUpdateUserProfile(false, firstName, lastName));
+         dispatch(fetchUserProfile());
       }
    }, [dispatch, firstName, lastName, isUserLoggedIn]);
 

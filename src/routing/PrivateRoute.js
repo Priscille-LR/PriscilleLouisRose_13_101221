@@ -1,10 +1,21 @@
 import { Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectIsUserLoggedIn } from '../redux/utils/selectors'
+import { logout } from '../redux/features/login'
+
 
 export function PrivateRoute({ children }) {
 
+    const dispatch = useDispatch()
+
     const isUserLoggedIn = useSelector(selectIsUserLoggedIn)
 
-    return isUserLoggedIn ? children : <Navigate to='/sign-in' />
+    if (!isUserLoggedIn) {
+        dispatch(logout())
+        return <Navigate to='/sign-in' />
+    } else {
+        return children
+    }
+
+    //return isUserLoggedIn ? children : <Navigate to='/sign-in' />
 }
