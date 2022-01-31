@@ -15,11 +15,7 @@ export const selectIsTokenExpired = (state) => {
 
 export const selectIsUserLoggedIn = (state) => selectToken(state) && !selectIsTokenExpired(state);
 
-export const selectError = (state) => state.login.error
 
-
-
-export const selectUser = (state) => state.userProfile
 
 export const selectUserStatus = (state) => state.userProfile.status
 

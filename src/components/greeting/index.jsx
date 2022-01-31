@@ -38,12 +38,11 @@ export function Greeting() {
    };
 
    const handleSubmit = async (e) => {
-      //prevent submit if invalid data
+      //prevent submit if data is invalid
       if (firstName === '' || lastName === '') {
          e.preventDefault();
       } else {
          dispatch(resetUserData());
-         //dispatch(fetchOrUpdateUserProfile(isEditName, firstName, lastName));
          dispatch(updateUserProfile(firstName, lastName));
          setIsEditName(false);
       }

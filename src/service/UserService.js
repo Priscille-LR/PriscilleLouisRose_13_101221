@@ -22,7 +22,7 @@ class UserService {
             })
 
             const data = await response.json()
-            console.log('success', data)
+            console.log('success login user', data)
 
             return data
         } catch (error) {

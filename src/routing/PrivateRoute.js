@@ -17,5 +17,4 @@ export function PrivateRoute({ children }) {
         return children
     }
 
-    //return isUserLoggedIn ? children : <Navigate to='/sign-in' />
 }

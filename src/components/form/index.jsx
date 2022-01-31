@@ -1,7 +1,3 @@
-// import { Link } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-// import loginReducer from '../../reducers/reducer';
-
 import './form.css';
 
 export function Form() {
