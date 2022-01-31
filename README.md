@@ -22,3 +22,5 @@ Remede Agency needs to complete their website's code to communicate with the bac
 - Install the dependencies with `npm install`
 - Run the app with `npm start`
 
+# API Documentation
+Once you have started your local environment, you can find the API doc in a Swagger.yaml at the root of the project
