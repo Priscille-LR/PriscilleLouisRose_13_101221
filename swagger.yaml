@@ -32,6 +32,10 @@ paths:
                   $ref: '#/definitions/LoginResponse'
             '400':
                description: Invalid Fields
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
    /user/signup:
@@ -56,6 +60,10 @@ paths:
                   $ref: '#/definitions/ApiResponse'
             '400':
                description: Invalid Fields
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
    /user/profile:
@@ -81,6 +89,10 @@ paths:
                   $ref: '#/definitions/ApiResponse'
             '400':
                description: Invalid Fields
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
       put:
@@ -111,6 +123,10 @@ paths:
                   $ref: '#/definitions/ApiResponse'
             '400':
                description: Invalid Fields
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
    /user/accounts:
@@ -136,6 +152,10 @@ paths:
                   $ref: '#/definitions/AccountsResponse'
             '400':
                description: Accounts Not Found
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
 
@@ -168,6 +188,10 @@ paths:
                   $ref: '#/definitions/TransactionsResponse'
             '400':
                description: Transactions Not Found
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
 
@@ -204,6 +228,10 @@ paths:
                   $ref: '#/definitions/TransactionResponse'
             '400':
                description: Transaction Not Found
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
 
@@ -246,6 +274,10 @@ paths:
                   $ref: '#/definitions/TransactionDetailsResponse'
             '400':
                description: Invalid Fields
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
 
@@ -287,6 +319,10 @@ paths:
                   $ref: '#/definitions/TransactionDetailsResponse'
             '400':
                description: Invalid Fields
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
 
@@ -321,6 +357,10 @@ paths:
                description: Transaction information deleted successfully
             '400':
                description: Invalid Fields
+            '401':
+               description: Unauthorised User
+            '404':
+               description: Page not Found
             '500':
                description: Internal Server Error
 
