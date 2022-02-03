@@ -32,8 +32,6 @@ paths:
                   $ref: '#/definitions/LoginResponse'
             '400':
                description: Invalid Fields
-            '401':
-               description: Unauthorised User
             '404':
                description: Page not Found
             '500':
@@ -60,8 +58,6 @@ paths:
                   $ref: '#/definitions/ApiResponse'
             '400':
                description: Invalid Fields
-            '401':
-               description: Unauthorised User
             '404':
                description: Page not Found
             '500':
@@ -90,7 +86,7 @@ paths:
             '400':
                description: Invalid Fields
             '401':
-               description: Unauthorised User
+               description: Invalid Token
             '404':
                description: Page not Found
             '500':
@@ -124,7 +120,7 @@ paths:
             '400':
                description: Invalid Fields
             '401':
-               description: Unauthorised User
+               description: Invalid Token
             '404':
                description: Page not Found
             '500':
@@ -153,7 +149,7 @@ paths:
             '400':
                description: Accounts Not Found
             '401':
-               description: Unauthorised User
+               description: Invalid Token
             '404':
                description: Page not Found
             '500':
@@ -189,7 +185,7 @@ paths:
             '400':
                description: Transactions Not Found
             '401':
-               description: Unauthorised User
+               description: Invalid Token
             '404':
                description: Page not Found
             '500':
@@ -229,7 +225,7 @@ paths:
             '400':
                description: Transaction Not Found
             '401':
-               description: Unauthorised User
+               description: Invalid Token
             '404':
                description: Page not Found
             '500':
@@ -275,7 +271,7 @@ paths:
             '400':
                description: Invalid Fields
             '401':
-               description: Unauthorised User
+               description: Invalid Token
             '404':
                description: Page not Found
             '500':
@@ -320,7 +316,7 @@ paths:
             '400':
                description: Invalid Fields
             '401':
-               description: Unauthorised User
+               description: Invalid Token
             '404':
                description: Page not Found
             '500':
@@ -358,7 +354,7 @@ paths:
             '400':
                description: Invalid Fields
             '401':
-               description: Unauthorised User
+               description: Invalid Token
             '404':
                description: Page not Found
             '500':
